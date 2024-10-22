@@ -57,8 +57,8 @@ expose:
     ports:
       httpPort: 80
       httpsPort: 443
-    annotations: {}
-    labels: {}
+    # annotations: {}
+    # labels: {}
 
 externalURL: http://harbor.192.168.1.87.nip.io
 
