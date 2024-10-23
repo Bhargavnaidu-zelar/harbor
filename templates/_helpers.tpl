@@ -563,28 +563,16 @@ app: "{{ template "harbor.name" . }}"
 {{- end -}}
 
 {{- define "harbor.traceEnvsForRegistryCtl" -}}
-{{- if and .Values.trace (hasKey .Values.trace "enabled") -}}
-{{- if .Values.trace.enabled -}}
-  - name: TRACE_ENABLED
-    value: "true"
-  - name: TRACE_BACKEND
-    value: {{ .Values.trace.backend | quote }}
-{{- else -}}
-  - name: TRACE_ENABLED
-    value: "false"
+  {{- if .Values.trace.enabled }}
+  TRACE_SERVICE_NAME: "harbor-registryctl"
+  {{ include "harbor.traceEnvs" . }}
+  {{- end }}
 {{- end -}}
-{{- else -}}
-  - name: TRACE_ENABLED
-    value: "false"
-{{- end -}}
-{{- end -}}
-
 
 {{- define "harbor.traceJaegerPassword" -}}
-{{- if and (hasKey .Values "trace") (hasKey .Values.trace "enabled") .Values.trace.enabled }}
+  {{- if and .Values.trace.enabled (eq .Values.trace.provider "jaeger") }}
   TRACE_JAEGER_PASSWORD: "{{ .Values.trace.jaeger.password | default "" | b64enc }}"
-{{- else }}
-{{- end }}
+  {{- end }}
 {{- end -}}
 
 {{/* Allow KubeVersion to be overridden. */}}

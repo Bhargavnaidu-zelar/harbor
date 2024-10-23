@@ -1,29 +1,16 @@
-{{- if and (hasKey .Values "internalTLS") (hasKey .Values.internalTLS "enabled") .Values.internalTLS.enabled }}
-# Your service configuration when internal TLS is enabled
+{{ if .Values.trivy.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: trivy-svc
+  name: "{{ template "harbor.trivy" . }}"
   labels:
-    {{ include "harbor.labels" . | indent 4 }}
+{{ include "harbor.labels" . | indent 4 }}
 spec:
   ports:
-    - port: 8080
-      name: trivy
+    - name: {{ ternary "https-trivy" "http-trivy" .Values.internalTLS.enabled }}
+      protocol: TCP
+      port: {{ template "harbor.trivy.servicePort" . }}
   selector:
-    app: trivy
-{{- else }}
-# Your service configuration when internal TLS is disabled or undefined
-apiVersion: v1
-kind: Service
-metadata:
-  name: trivy-svc
-  labels:
-    {{ include "harbor.labels" . | indent 4 }}
-spec:
-  ports:
-    - port: 8080
-      name: trivy
-  selector:
-    app: trivy
-{{- end }}
+{{ include "harbor.matchLabels" . | indent 4 }}
+    component: trivy
+{{ end }}

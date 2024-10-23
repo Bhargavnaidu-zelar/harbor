@@ -61,9 +61,6 @@ expose:
     labels: {}
 
 externalURL: http://harbor.192.168.1.87.nip.io
-trivy:
-  enabled: true
 
 existingSecretAdminPasswordKey: HARBOR_ADMIN_PASSWORD
 harborAdminPassword: "Bhargav123"
-
