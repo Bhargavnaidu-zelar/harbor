@@ -570,9 +570,10 @@ app: "{{ template "harbor.name" . }}"
 {{- end -}}
 
 {{- define "harbor.traceJaegerPassword" -}}
-  {{- if and .Values.trace.enabled (eq .Values.trace.provider "jaeger") }}
+{{- if and (hasKey .Values "trace") (hasKey .Values.trace "enabled") .Values.trace.enabled }}
   TRACE_JAEGER_PASSWORD: "{{ .Values.trace.jaeger.password | default "" | b64enc }}"
-  {{- end }}
+{{- else }}
+{{- end }}
 {{- end -}}
 
 {{/* Allow KubeVersion to be overridden. */}}
