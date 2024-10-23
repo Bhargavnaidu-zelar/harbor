@@ -20,6 +20,6 @@ maintainers:
 name: harbor
 sources:
 - https://helm.goharbor.io
-- https://github.com/goharbor/harbor
-- https://github.com/goharbor/harbor-helm
+# - https://github.com/goharbor/harbor
+# - https://github.com/goharbor/harbor-helm
 version: 1.15.1
