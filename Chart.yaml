@@ -23,3 +23,10 @@ sources:
 # - https://github.com/goharbor/harbor
 # - https://github.com/goharbor/harbor-helm
 version: 1.15.1
+dependencies:
+  - name: postgresql
+    version: "10.0.0" # Specify the desired version
+    repository: "https://charts.bitnami.com/bitnami"
+  - name: redis
+    version: "14.0.0" # Specify the desired version
+    repository: "https://charts.bitnami.com/bitnami"
