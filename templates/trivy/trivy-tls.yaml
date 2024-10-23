@@ -1,4 +1,4 @@
-{{- if and .Values.trivy.enabled }}
+{{- if and .Values.trivy.enabled .Values.internalTLS.enabled  }}
 {{- if eq .Values.internalTLS.certSource "manual" }}
 apiVersion: v1
 kind: Secret
